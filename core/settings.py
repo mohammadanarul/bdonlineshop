@@ -78,8 +78,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE':'djongo',
+        'NAME': 'Freelancer',
+        'HOST': 'mongodb+srv://freelanceranarul:<MD367075bd>@cluster0.juxcc.mongodb.net/<bdonlineshop>?retryWrites=true&w=majority',
+        'USER': 'freelanceranarul',
+        'PASSWORD': 'MD367075bd',
     }
 }
 

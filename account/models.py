@@ -8,7 +8,7 @@ class AccountManager(BaseUserManager):
 
         if not username:
             raise ValueError('Users must have an username')
-        user self.model = (
+        user = self.model(
             email = self.normalize_email(email),
             username = username
         )
@@ -18,12 +18,12 @@ class AccountManager(BaseUserManager):
     
     def create_superuser(self, email, username, password=None):
         user = self.create_user(
-            email=self.normalize_email(email),
-            username=username,
-            password=password
+            email = self.normalize_email(email),
+            username = username,
+            password = password
         )
         user.is_admin = True
-        user.is_stuff = True
+        user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
         return user
@@ -31,13 +31,15 @@ class AccountManager(BaseUserManager):
 
 class Account(AbstractBaseUser):
     username            =   models.CharField(max_length=255, unique=True)
-    email               =   models.EmailField(unique=True, unique=True)
+    email               =   models.EmailField(unique=True)
     date_joined         =   models.DateTimeField(auto_now_add=True)
     last_login          =   models.DateTimeField(auto_now=True)
     is_active           =   models.BooleanField(default=True)
     is_admin            =   models.BooleanField(default=False)
-    is_stuff            =   models.BooleanField(default=False)
+    is_staff            =   models.BooleanField(default=False)
     is_superuser        =   models.BooleanField(default=False)
+
+    objects = AccountManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']

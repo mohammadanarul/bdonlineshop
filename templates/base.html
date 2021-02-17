@@ -30,14 +30,17 @@
 </head>
 
 <body>
-    <!-- Start navabr section -->
-    {% include 'snippets/navbar.html' %}
-    <!-- End navbar section -->
     <div class="page-wrapper">
+        <!-- Start navabr section -->
+        {% include 'snippets/navbar.html' %}
+        <!-- End navbar section -->
         
         {% block content %}
             
         {% endblock content %}
+        <!-- Start footer section -->
+        {% include 'snippets/footer.html' %}
+        <!-- End fotter section -->
             
     </div><!-- End .page-wrapper -->
 

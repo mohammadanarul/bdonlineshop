@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Custom app installed
     'account.apps.AccountConfig',
+    'shop.apps.ShopConfig',
 ]
 
 MIDDLEWARE = [

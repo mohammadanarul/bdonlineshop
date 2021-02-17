@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 <main class="main">
     <div class="intro-slider-container mb-5">
         <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" 
@@ -11,7 +14,7 @@
                     }
                 }
             }'>
-            <div class="intro-slide" style="background-image: url(assets/images/demos/demo-4/slider/slide-1.png);">
+            <div class="intro-slide" style="background-image: url('{% static "images/demos/demo-4/slider/slide-1.png" %}');">
                 <div class="container intro-content">
                     <div class="row justify-content-end">
                         <div class="col-auto col-sm-7 col-md-6 col-lg-5">
@@ -35,7 +38,7 @@
                 </div><!-- End .intro-content -->
             </div><!-- End .intro-slide -->
 
-            <div class="intro-slide" style="background-image: url(assets/images/demos/demo-4/slider/slide-2.png);">
+            <div class="intro-slide" style="background-image: url('{% static "images/demos/demo-4/slider/slide-2.png" %}');">
                 <div class="container intro-content">
                     <div class="row justify-content-end">
                         <div class="col-auto col-sm-7 col-md-6 col-lg-5">
@@ -2665,3 +2668,4 @@
         </div><!-- End .container -->
     </div><!-- End .icon-boxes-container -->
 </main><!-- End .main -->
+{% endblock content %}

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,6 +34,11 @@
     {% include 'snippets/navbar.html' %}
     <!-- End navbar section -->
     <div class="page-wrapper">
+        
+        {% block content %}
+            
+        {% endblock content %}
+            
     </div><!-- End .page-wrapper -->
 
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>

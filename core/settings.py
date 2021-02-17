@@ -57,7 +57,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,11 +78,8 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE':'djongo',
-        'NAME': 'Freelancer',
-        'HOST': 'mongodb+srv://freelanceranarul:<MD367075bd>@cluster0.juxcc.mongodb.net/<bdonlineshop>?retryWrites=true&w=majority',
-        'USER': 'freelanceranarul',
-        'PASSWORD': 'MD367075bd',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
 }
 
@@ -136,4 +133,4 @@ django_heroku.settings(locals())
 
 # login url 
 # LOGIN_URL='account:user_login'
-# LOGIN_REDIRECT_URL='post:home'
+LOGIN_REDIRECT_URL='/'

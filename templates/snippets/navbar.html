@@ -41,13 +41,13 @@
                                     <a href="#">{{ request.user.username }}</a>
                                     <div class="header-menu">
                                         <ul>
-                                            <li><a href="#">desbord</a></li>
+                                            <li><a href="{% url 'account:user_dashboard' username=request.user.username %}">desbord</a></li>
                                             <li><a href="{% url 'account:user_logout' %}">logout</a></li>
                                         </ul>
                                     </div><!-- End .header-menu -->
                                 </li>
                             {% else %}
-                                <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
+                                <li><a href="{% url 'account:user_login' %}">Sign in / Sign up</a></li>
                             {% endif %}
                                 
                         </ul>

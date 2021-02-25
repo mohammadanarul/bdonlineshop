@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'shop.apps.ShopConfig',
     'category.apps.CategoryConfig',
+    # third perty app installed
+    'mptt',
 ]
 
 MIDDLEWARE = [

@@ -3,4 +3,4 @@ from category.models import Category
 
 @admin.register(Category)
 class CategoryModelAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['name']

@@ -1,0 +1,26 @@
+<!-- main html template import -->
+{% extends 'base.html' %}
+<!-- import media and images file -->
+{% load static %}
+<!-- mptt tags import -->
+{% load mptt_tags %}
+<!-- head title -->
+{% block head_title %}{% endblock head_title %}
+<!-- main content -->
+{% block content %}
+{% endblock content %}
+
+
+{% load mptt_tags %}
+<ul>
+    {% recursetree genres %}
+        <li>
+            {{ node.name }}
+            {% if not node.is_leaf_node %}
+                <ul class="children">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>

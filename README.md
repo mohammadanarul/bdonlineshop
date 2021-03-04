@@ -7,9 +7,4 @@ Ecommerce website in django...
     3. Shop
     4. Shop Card
 
-MAFIA KILLER
-KILLER MAFIA
-JOCKER MAFIA
-CLEVER MAFIA KILLER
-
 http://share.payoneer.com/nav/9gOY-MuRZfym_8M96bUIYu1jyRrEU6e5ZROuQxzC5CDJGH5-aIoW65d0qjP5m2F5R87Rd40mhQ6Z3Kd7TLNQDw2

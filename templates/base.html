@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Tmart-Minimalist eCommerce HTML5 Template</title>
+    <title>Tmart-Minimalist | {% block head_title %}{% endblock head_title %}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -30,14 +30,13 @@
         <!-- Start Header Style -->
         {% include 'snippets/navbar.html' %}
         <!-- End Header Style -->
-        
+        <!-- start messages section -->
+        {% include 'snippets/messages.html' %}
+        <!-- End messages section -->
         <div class="body__overlay"></div>
         <!-- Start Offset Wrapper -->
         {% include 'snippets/sidebar-offset.html' %}
         <!-- End Offset Wrapper -->
-        <!-- Start category section -->
-        {% include 'snippets/category-sidebar.html' %}
-        <!-- End category section -->
         <!-- Start main content -->
         {% block content %}
         {% endblock content %}

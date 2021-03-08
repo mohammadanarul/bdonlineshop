@@ -18,7 +18,7 @@
                                             <div class="slider__inner">
                                                 <h1>{{ object.title }} <br><span class="text--theme" style='color: red !important;'>{{ object.category.name }}</span></h1>
                                                 <div class="slider__btn">
-                                                    <a class="htc__btn" href="cart.html">shop now</a>
+                                                    <a class="htc__btn" href="{% url 'shop:single_shop_view' slug=object.slug %}">shop now</a>
                                                 </div>
                                             </div>
                                         </div>

@@ -25,7 +25,7 @@
                             </li>
                             <li><a href="blog.html">Blog</a>
                             </li>
-                            <li><a href="shop.html">Shop</a>
+                            <li><a href="{% url 'shop:shop_view' %}">Shop</a>
                             </li>
                             <li><a href="contact.html">contact</a></li>
                         </ul>
@@ -70,7 +70,8 @@
                     <ul class="menu-extra">
                         <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
                         <li><a href="login-register.html"><span class="ti-user"></span></a></li>
-                        <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
+                        <!-- cart__menu -->
+                        <li class="#"><a href="{% url 'order:order_summary' %}"><span class="ti-shopping-cart"></span></a></li>
                         <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>
                     </ul>
                 </div>

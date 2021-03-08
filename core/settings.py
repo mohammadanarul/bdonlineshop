@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'shop.apps.ShopConfig',
     'category.apps.CategoryConfig',
+    'orders.apps.OrdersConfig',
     # third perty app installed
     'mptt',
 ]

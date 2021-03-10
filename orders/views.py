@@ -80,6 +80,35 @@ def single_remove_cart(request, slug):
     else:
         messages.info(request, 'You do not have an active  order.')
         return redirect('shop:shop_view')
+
+# item remove from cart.
+def remove_from_cart(request, slug):
+    item = get_object_or_404(
+        Product,
+        slug=slug
+    )
+    order_qs = Order.objects.filter(
+        user=request.user,
+        ordered=False
+    )
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.items.filter(item__slug=item.slug).exists():
+            order_item = OrderItem.objects.filter(
+                item=item,
+                user=request.user,
+                ordered=False
+            )[0]
+            order.items.remove(order_item)
+            messages.info(request, 'This item was removed from your cart.')
+            return redirect('shop:shop_view')
+        else:
+            messages.info(request, 'This item was not in your catd.')
+            return redirect('shop:shop_view')
+    else:
+        messages.info(request, 'You do not have an active order.')
+        return redirect('shop:shop_view')
+
     
 
 

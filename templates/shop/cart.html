@@ -63,7 +63,7 @@
                                                       </div>
                                                 </td>
                                                 <td class="product-subtotal">£{{ order.get_item_final_ammount }}<span class="badge bg-success">save ammount {{ orders.get_save_ammount }}</span></td>
-                                                <td class="product-remove"><a href="#">X</a></td>
+                                                <td class="product-remove"><a href="{% url 'order:remove_from_cart' slug=order.item.slug %}">X</a></td>
                                             </tr>
                                         {% endfor %}
                                             
@@ -115,7 +115,7 @@
                                             </tbody>
                                         </table>
                                         <div class="wc-proceed-to-checkout">
-                                            <a href="checkout.html">Proceed to Checkout</a>
+                                            <a href="{% url 'payment:checkout_view' %}">Proceed to Checkout</a>
                                         </div>
                                     </div>
                                 </div>

@@ -12,7 +12,7 @@ class CustomUserCreationForm(UserCreationForm):
         model = Account
         fields = UserCreationForm.Meta.fields
 
-class user_register_form(UserCreationForm):
+class NewUserRegisterForm(UserCreationForm):
     email = forms.EmailField(max_length=255, help_text="Require. Add a valid email address.")
     class Meta:
         model = Account

@@ -1,34 +1,36 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
-from account.forms import user_register_form
+from django.views.generic import View, CreateView
+from django.urls import reverse_lazy
+from account.forms import NewUserRegisterForm
+from .models import Account
 
-def user_register_page(request, *args, **kwargs):
-    form = user_register_form()
-    if request.method == 'POST':
-        form = user_register_form(request.POST or None)
-        if form.is_valid():
-            form1 = form.save()
-            login(request, form1, backend='django.contrib.auth.backends.ModelBackend')
-            return redirect('account:user_dashboard')
-    else:
-        form = user_register_form()
+class UserRegisterView(CreateView):
     template_name = 'account/register.html'
-    return render(request, template_name, {'form': form})
+    form_class = NewUserRegisterForm
+    success_url = reverse_lazy('account:user_login')
 
-def user_login_page(request, *args, **kwargs):
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        user = authenticate(request, email=email, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('/')
+# login(request, form1, backend='django.contrib.auth.backends.ModelBackend')
+
+class UserLoginView(View):
     template_name = 'account/login.html'
-    return render(request, template_name)
 
-def user_logout_page(request):
-    logout(request)
-    return redirect('/')
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+    
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+
+class UserLogoutView(View):
+    def get(self, *args, **kwargs):
+        logout(self.request)
+        return redirect('/')
 
 
 def user_dashboard_page_view(request, username):

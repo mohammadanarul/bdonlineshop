@@ -1,25 +1,33 @@
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import View, ListView, DetailView
 from shop.models import Product
 from category.models import Category
+from brands.models import Brand
+from colors.models import Color
+from sizes.models import Size
 
-def HomeView(request):
-    product = Product.objects.all()
-    category = Category.objects.all()
+class HomeView(ListView):
+    model = Product
     template_name = 'shop/home.html'
-    context = {
-        'category': category,
-        'product': product,
-    }
-    return render(request, template_name, context)
 
-def shop_page_view(request):
-    category = Category.objects.all()
-    product = Product.objects.all()
+class ShopProductView(View):
     template_name = 'shop/shop.html'
-    return render(request, template_name, {'product': product, 'category': category,})
+    def get(self, request, *args, **kwargs):
+        product = Product.objects.all()
+        category = Category.objects.all()
+        brand = Brand.objects.all()
+        color = Color.objects.all()
+        size = Size.objects.all()
+        context = {
+            'product': product,
+            'category': category,
+            'brands': brand,
+            'colors': color,
+            'sizes': size
+        }
+        return render(request, self.template_name, context)
 
-def single_shop_view(request, slug):
-    product = get_object_or_404(Product, slug=slug)
+class SingleProductView(DetailView):
+    model = Product
     template_name = 'shop/product-details.html'
-    return render(request, template_name, {'product': product})
 

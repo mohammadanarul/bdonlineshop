@@ -1,7 +1,8 @@
 from django.db import models
 from shop.models import Product
 from django.conf import settings
-
+from django.utils.translation import ugettext_lazy as _
+from payment.models import BuildingAddress
 User = settings.AUTH_USER_MODEL
 
 class OrderItem(models.Model):
@@ -27,11 +28,12 @@ class OrderItem(models.Model):
 
 
 class Order(models.Model):
-    user                  =   models.ForeignKey(User, on_delete=models.CASCADE)
-    items                 =   models.ManyToManyField(OrderItem)
-    start_date            =   models.DateTimeField(auto_now_add=True)
-    ordered_date          =   models.DateTimeField()
-    ordered               =   models.BooleanField(default=False)
+    user                  =   models.ForeignKey(User, verbose_name=_("user"), on_delete=models.CASCADE)
+    items                 =   models.ManyToManyField(OrderItem, verbose_name=_("items"))
+    start_date            =   models.DateTimeField(auto_now_add=True, verbose_name=_("start date"))
+    ordered_date          =   models.DateTimeField(verbose_name=_("ordered date"))
+    ordered               =   models.BooleanField(default=False, verbose_name=_("building address"))
+    building_address      =   models.ForeignKey(BuildingAddress, verbose_name=_("building address"), on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return f"{self.user}-{self.pk}"

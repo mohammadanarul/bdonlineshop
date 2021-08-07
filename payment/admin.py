@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import BuildingAddress
 
-# Register your models here.
+@admin.register(BuildingAddress)
+class BuildingAddressAdminModel(admin.ModelAdmin):
+    pass

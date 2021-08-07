@@ -1,9 +1,9 @@
 from django.urls import path
 from category.views import (
-    category_list_page_view,
+    CategoryListPageView,
 )
 
 app_name = 'category'
 urlpatterns = [
-    path('category-list/<slug>/', category_list_page_view, name='category_list')
+    path('category-list/<slug>/', CategoryListPageView.as_view(), name='category_list')
 ]

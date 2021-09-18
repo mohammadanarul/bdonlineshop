@@ -7,5 +7,5 @@ from payment.views import (
 app_name = 'payment'
 urlpatterns = [
     path('checkout/', CheckoutView.as_view(), name='checkout_view'),
-    path('payment/', PaymentView.as_view(), name='payment_view'),
+    path('payment/<payment_option>/', PaymentView.as_view(), name='payment_view'),
 ]

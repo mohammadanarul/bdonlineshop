@@ -12,7 +12,8 @@
 <!-- main content -->
 {% block content %}
 {% endblock content %}
-
+{% block extra_javascript %}
+{% endblock extra_javascript %}
 
 {% load mptt_tags %}
 <ul>
@@ -27,3 +28,48 @@
         </li>
     {% endrecursetree %}
 </ul>
+
+
+<div class="row">
+    <div class="col-xl-8">
+        <div class="row">
+            <div class="col-xl-4">
+                <section>
+                    <i class="fa fa-arrow-up"></i>
+                </section>
+                <div id="slider">
+                    {% for image in object.productimages_set.all %}
+                            <img class="sub-image" src="{{image.images.url}}" alt="">
+                    {% endfor %}
+                </div>
+                <section>
+                    <i class="fa fa-arrow-down"></i>
+                </section>
+
+            </div>
+            <div class="col-xl-8">
+                <div class="card p-2">
+                    <img id="featured" class="main-image active" src="{{ object.image.url }}" alt="main product image">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card">
+            <div class="card-body">
+                {{ object.title}}
+                <hr>
+                <section class="price">
+                    ${{ object.price}} <del>{{ object.discount_price}}</del>
+                </section>
+                <p>
+                    {{ object.product_details }}
+                </p>
+                <div class="btn btn-group">
+                    <a class="btn btn-primary">Add to cart</a>
+                    <a class="btn btn-primary">Wishlist</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

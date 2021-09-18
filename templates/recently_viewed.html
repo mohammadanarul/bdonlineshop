@@ -1,0 +1,33 @@
+	{% load static %}
+	{% load shop_template_tags %}
+	{% recent_product_tag as recent_product %}
+	{% for product in recent_product %}
+	{% endfor %}
+	<div class="card p-3 mt-3">
+		<h4 class="m-0">|| Recently viewed</h4>
+	</div>
+	<div class="row">
+		{% for product in recent_product %}
+		<div class="col-xl-3">
+			<section class="recent_view_section">
+				<div class="card mt-3">
+					<img class="recent_view_image" src="{{ product.image.url }}" alt="">
+					<div class="card-body d-flex flex-column justify-content-center align-items-center">
+						<section>
+							<a class="product-title" href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+						</section>
+						<section class="text-center ml-3 f-left">
+							${{ product.price }}<del>160</del>
+						</section>
+						<section>
+							<div class="btn btn-group">
+								<a class="btn btn-primary">Add to cart</a>
+								<a class="btn btn-primary">Wishlist</a>
+							</div>
+						</section>
+					</div>
+				</div>
+			</section>
+		</div>
+		{% endfor %}
+	</div>

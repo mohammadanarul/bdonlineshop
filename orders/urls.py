@@ -13,6 +13,3 @@ urlpatterns = [
     path('single-item-remove-from-cart/<slug>/', single_remove_cart, name='single_item_remove'),
     path('remove-from-cart/<slug>/', remove_from_cart, name='remove_from_cart'),
 ]
-
-# 02255105
-# mnbvcxzlkj21

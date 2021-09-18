@@ -1,5 +1,5 @@
 import os
-# from decouple import config
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'colors.apps.ColorsConfig',
     'sizes.apps.SizesConfig',
     'variants.apps.VariantsConfig',
+    'wishlists.apps.WishlistsConfig',
 
     # third perty app installed
     'mptt',

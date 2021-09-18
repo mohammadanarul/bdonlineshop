@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/cart_styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/cart_responsive.css' %}">
+{% endblock extra_head %}
+{% block content %}
+<!-- Cart -->
+
+	<div class="cart_section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 offset-lg-1">
+					<div class="cart_container">
+						<div class="cart_title">Shopping Cart</div>
+						<div class="cart_items">
+							<ul class="cart_list">
+								
+								{% for order_item in object.items.all %}
+									<li class="cart_item clearfix">
+										<div class="cart_item_image"><img src="{{ order_item.item.image.url }}" alt=""></div>
+										<div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
+											<div class="cart_item_name cart_info_col">
+												<div class="cart_item_title">Name</div>
+												<div class="cart_item_text">{{ order_item.item.title }}</div>
+											</div>
+											<div class="cart_item_color cart_info_col">
+												<div class="cart_item_title">Color</div>
+												<div class="cart_item_text"><span
+														style="background-color:#999999;"></span>Silver{{ order_item.item.get_total_quantity }}</div>
+											</div>
+											<div class="cart_item_quantity cart_info_col">
+												<div class="cart_item_title">Quantity</div>
+												<div class="cart_item_text">{{ order_item.quantity }}</div>
+											</div>
+											<div class="cart_item_price cart_info_col">
+												<div class="cart_item_title">Price</div>
+												<div class="cart_item_text">${{ order_item.item.price }}</div>
+											</div>
+											<div class="cart_item_total cart_info_col">
+												<div class="cart_item_title">Total</div>
+												<div class="cart_item_text">${{ order_item.get_total_item_price }}</div>
+											</div>
+										</div>
+									</li>
+								{% endfor %}
+									
+							</ul>
+						</div>
+
+						<!-- Order Total -->
+						<div class="order_total">
+							<div class="order_total_content text-md-right">
+								<div class="order_total_title">Order Total:</div>
+								<div class="order_total_amount">${{ object.get_total_price }}</div>
+							</div>
+						</div>
+
+						<div class="cart_buttons">
+							<a href="/" class="button cart_button_clear">Back Shop</a>
+							<a href="{% url 'payment:checkout_view' %}" style="color:#fff" class="button cart_button_checkout">Checkout &#8594;</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}
+{% block extra_javascript %}
+	<script src="{% static 'js/cart_custom.js' %}"></script>
+{% endblock extra_javascript %}

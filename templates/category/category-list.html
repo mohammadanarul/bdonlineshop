@@ -1,0 +1,96 @@
+<!-- main html template import -->
+{% extends 'base.html' %}
+<!-- import media and images file -->
+{% load static %}
+{% load product_category_tags %}
+<!-- mptt tags import -->
+{% load mptt_tags %}
+<!-- head title -->
+{% block head_title %}Shop{% endblock head_title %}
+<!-- Extra head -->
+{% block extra_head %}
+<style>
+	.shop-site-nav > nav{
+		width: 250px;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		background-color: rgb(0, 0, 0, 0.1);
+		border-radius: 10px;
+		box-sizing: 5px 7px 10px rgba(0, 0, 0, .1);
+	}
+	.shop-site-nav nav ul {
+		position: relative;
+		list-style-type: none;
+	}
+	.shop-site-nav nav ul li > a{
+		display: flex;
+		align-items: center;
+		font-family: Arial;
+		font-size: 1.15rem;
+		text-decoration: none;
+		text-transform: capitalize;
+		color: #000;
+		padding: 10px 30px;
+		height: 50px;
+	}
+	.shop-site-nav nav ul li a:hover{
+		background-color: rgba(0, 0, 0, .7);
+	}
+	.shop-site-nav nav ul ul{
+		position: absolute;
+		left: 250px;
+		width: 200px;
+		top: 0;
+		display: none;
+		color: #000;
+		background-color: rgb(0, 0, 0, 0.1);
+		border-radius: 5px;
+		box-shadow: 2px 2px 10px rgba(0, 0, 0, .1);
+	}
+	.shop-site-nav nav ul span{
+		position: absolute;
+		right: 20px;
+		font-size: 1.5em;
+	}
+	.shop-site-nav nav ul .dropdown{
+		position: relative;
+	}
+	.shop-site-nav nav ul .dropdown:hover ul{
+		display: initial;
+		z-index: 100;
+	}
+	
+</style>
+{% endblock extra_head %}
+<!-- main content -->
+{% block content %}
+	<div class="container">
+		<div class="card p-3 mt-3 d-flex flex-row">
+			<a href="/">Home </a> | <a href="{% url 'shop:shop_view' %}"> Shop</a>
+		</div>
+		<div class="row mt-3">
+            {% for object in objects %}
+                <div class="col-xl-4">
+                    <div class="card">
+                        <img src="{{ object.image.url }}" alt="">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <h5 class="text-center">{{ object.title }}</h5>
+                            <section>
+                                ${{ object.price }}<del>160</del>
+                            </section>
+                            <section>
+                                <div class="btn btn-group">
+                                    <a class="btn btn-primary"><i class="fas fa-shopping-cart"></i></a>
+                                    <a class="btn btn-primary"><i class="far fa-heart"></i></a>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+		</div>
+	</div>
+{% endblock content %}
+{% block extra_javascript %}
+{% endblock extra_javascript %}

@@ -1,0 +1,304 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_title %}{{ object.title }}{% endblock head_title %}
+{% block extra_head %}
+<style>
+	#content-wrapper {
+		display: flex;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.column {
+		width: 600px;
+		padding: 10px;
+	}
+
+	#featured {
+		max-width: 500px;
+		max-height: 600px;
+		min-width: 300px;
+		min-height: 400px;
+		object-fit: cover;
+		cursor: pointer;
+		border: 2px solid black;
+	}
+
+	.thumbnail {
+		object-fit: cover;
+		max-width: 120px;
+		max-height: 120px;
+		cursor: pointer;
+		opacity: 0.5;
+		margin: 5px;
+		border: 2px solid orchid;
+	}
+
+	.thumbnail:hover {
+		opacity: 1;
+	}
+
+	.active {
+		opacity: 1;
+	}
+
+	#slider-wrapper {
+		max-width: 500px;
+		display: flex;
+		min-height: 100px;
+		align-items: center;
+	}
+
+	#slider {
+		width: 440px;
+		display: flex;
+		flex-wrap: nowrap;
+		overflow-x: hidden;
+	}
+
+	#SlideLeft .fa-chevron-left {
+		width: 40px;
+		height: 40px;
+		cursor: pointer;
+		transition: .3s;
+	}
+
+	#SlideLeft .fa-chevron-left:hover {
+		width: 45px;
+		height: 45px;
+		opacity: .5;
+	}
+
+	#slideRight .fa-chevron-right {
+		width: 40px;
+		height: 40px;
+		cursor: pointer;
+		transition: .3s;
+	}
+
+	#slideRight .fa-chevron-right:hover {
+		width: 45px;
+		height: 45px;
+		opacity: .5;
+	}
+
+	.quantity-section {
+		display: flex;
+		width: 300px;
+	}
+
+	.quantity {
+		width: 200px;
+	}
+	.rate > input {
+		display: none;
+	}
+	.rate{
+		display: inline-block;
+		border: 0;
+	}
+	.rate > label{
+		float: right;
+	}
+	.rate > label:before{
+		display: inline-block;
+		font-size: 1.1rem;
+		font-family: "Font Awesome 5 Free";
+		content: "\f005";
+		margin: 0;
+		padding: 0.3rem .2rem;
+		cursor: pointer;
+	}
+	.rate .half:before{
+		position: absolute;
+		font-size: 1.1rem;
+		font-family: "Font Awesome 5 Free";
+		content: "\f089";
+		padding-right: 0;
+	}
+	input:checked ~ label, label:hover ~ label{
+		color: #ffb503;
+	}
+	input:checked ~ label:hover, input:checked ~ label:hover, input:checked ~ label.hover ~ label,
+	label:hover ~ input:checked ~ label{
+		color: #cc9000;
+	}
+	.review-user img{
+		height: 30px;
+		width: 30px;
+		border-radius: 50%;
+	}
+	.review-user h6{
+		font-size: 16px;
+		padding-top: 5px;
+		padding-left: 8px;
+		margin: 0;
+	}
+	.review-user i{
+		font-size: 10px;
+		color: #ffb503;
+	}
+	.review-content h6{
+		font-size: 16px;
+	}
+	.review-content p{
+		font-size: 14px;
+	}
+	.review-rating{
+		color: #ffb503;;
+	}
+</style>
+{% endblock extra_head %}
+
+
+{% block content %}
+<section class="single-product mt-5">
+	<div id="content-wrapper">
+		<div class="column">
+			<img id="featured" src="{{ object.image.url }}" alt="main image">
+			<div id="slider-wrapper">
+				<section id="SlideLeft">
+					<i class="fas fa-chevron-left"></i>
+				</section>
+				<div id="slider">
+					{% for image in object.productimages_set.all %}
+					<img class="thumbnail" src="{{image.images.url}}" alt="">
+					{% endfor %}
+				</div>
+				<section id="slideRight">
+					<i class="fas fa-chevron-right"></i>
+				</section>
+			</div>
+		</div>
+		<div class="column product-content">
+			<h1>{{ object.title }}</h1>
+			<div class="review-rating">
+				<i class="{% if object.average_rating < 0.5 %}far fa-star{% elif object.average_rating >= 0.5 and object.average_rating < 1 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
+				<i class="{% if object.average_rating < 1.5 %}far fa-star{% elif object.average_rating >= 1.5 and object.average_rating < 2 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
+				<i class="{% if object.average_rating < 2.5 %}far fa-star{% elif object.average_rating >= 2.5 and object.average_rating < 3 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
+				<i class="{% if object.average_rating < 3.5 %}far fa-star{% elif object.average_rating >= 3.5 and object.average_rating < 4 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
+				<i class="{% if object.average_rating < 4.5 %}far fa-star{% elif object.average_rating >= 4.5 and object.average_rating < 5 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
+				review <i class="{{object.average_rating}}"></i>
+			</div>
+			<hr>
+			<h3>{{ object.price }}</h3>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, cupiditate saepe quaerat nisi quo
+				fugiat natus. Voluptate quos, distinctio voluptatem commodi reiciendis ullam consequuntur. Accusantium
+				fuga
+				recusandae quaerat doloremque quae.
+			</p>
+			<section class="quantity-section">
+				<input type="number" value="1" class="form-control quantity">
+				<div class="ml-2">
+					<a class="btn btn-primary"><i class="fas fa-shopping-cart"></i></a>
+					<a class="btn btn-primary"><i class="far fa-heart"></i></a>
+				</div>
+			</section>
+		</div>
+	</div>
+	<section class="comment-section">
+		<div class="column">
+			<section>
+				<h4>Rating</h4>
+				<div class="review-rating">
+					<i class="{% if object.average_rating < 0.5 %}far fa-star{% elif object.average_rating >= 0.5 and object.average_rating < 1 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
+					<i class="{% if object.average_rating < 1.5 %}far fa-star{% elif object.average_rating >= 1.5 and object.average_rating < 2 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
+					<i class="{% if object.average_rating < 2.5 %}far fa-star{% elif object.average_rating >= 2.5 and object.average_rating < 3 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
+					<i class="{% if object.average_rating < 3.5 %}far fa-star{% elif object.average_rating >= 3.5 and object.average_rating < 4 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
+					<i class="{% if object.average_rating < 4.5 %}far fa-star{% elif object.average_rating >= 4.5 and object.average_rating < 5 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
+				</div>
+			</section>
+			<section>
+				{% for review in object.reviews.all %}
+					<div class="card p-2 mt-2">
+						<section class="review-user">
+							<section>
+								<div class="d-flex">
+									<img src="/static/images/avatar.png" alt="image">
+									<h6>{{ review.user }}</h6>
+								</div>
+								<div>
+									<i class="{% if review.rating == 0.5 %}fas fa-star-half-alt{% elif review.rating < 1 %}far fa-star{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
+									<i class="{% if review.rating == 1.5 %}fas fa-star-half-alt{% elif review.rating < 2 %}far fa-star{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
+									<i class="{% if review.rating == 2.5 %}fas fa-star-half-alt{% elif review.rating < 3 %}far fa-star{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
+									<i class="{% if review.rating == 3.5 %}fas fa-star-half-alt{% elif review.rating < 4 %}far fa-star{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
+									<i class="{% if review.rating == 4.5 %}fas fa-star-half-alt{% elif review.rating < 5 %}far fa-star{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
+								</div>
+							</section>
+							<section>
+
+							</section>
+						</section>
+						<hr class="m-0">
+						<section class="review-content">
+							<h6 class="m-0">{{ review.subject }}</h6>
+							<p class="m-0">
+								{{ review.review}}
+							</p>
+						</section>
+					</div>
+				{% endfor %}
+					
+			</section>
+			<section class="mt-2">
+				<h4 class="m-0">Comment and Review</h4>
+				<hr class="m-0">
+				<form action="{% url 'shop:review_ratting_view' object.pk %}" method="post">
+					{% csrf_token %}
+					<div class="rate">
+						<input type="radio" name="rating" id="rating10" value="5" required /><label for="rating10" title="5"></label>
+						<input type="radio" name="rating" id="rating9" value="4.5" required /><label for="rating9" class="half" title="4.5"></label>
+						<input type="radio" name="rating" id="rating8" value="4" required /><label for="rating8" title="4"></label>
+						<input type="radio" name="rating" id="rating7" value="3.5" required /><label for="rating7" class="half" title="3.5"></label>
+						<input type="radio" name="rating" id="rating6" value="3" required /><label for="rating6" title="3"></label>
+						<input type="radio" name="rating" id="rating5" value="2.5" required /><label for="rating5" class="half" title="2.5"></label>
+						<input type="radio" name="rating" id="rating4" value="2" required /><label for="rating4" title="2"></label>
+						<input type="radio" name="rating" id="rating3" value="1.5" required /> <label for="rating3" class="half" title="1.5"></label>
+						<input type="radio" name="rating" id="rating2" value="1" required /><label for="rating2" title="1"></label>
+						<input type="radio" name="rating" id="rating1" value="0.5" required /><label for="rating1" class="half" title="0.5"></label>
+					</div>
+					<input class="form-control" type="text" name="subject" placeholder="subject">
+					<textarea class="form-control mt-2" name="review" id="" cols="30" rows="10"
+						placeholder="comment"></textarea>
+						<button class="btn btn-primary mt-2">Submit</button>
+				</form>
+			</section>
+		</div>
+	</section>
+	<!-- Recently Viewed -->
+	{% include 'recently_viewed.html' %}
+
+</section>
+
+{% endblock content %}
+{% block extra_javascript %}
+<script>
+	let thumbnailImages = document.getElementsByClassName('thumbnail')
+	let ActiveImage = document.getElementsByClassName('active')
+
+	for (var i = 0; i < thumbnailImages.length; i++) {
+		thumbnailImages[i].addEventListener('click', function () {
+			console.log(ActiveImage);
+			if (ActiveImage.length > 0) {
+				ActiveImage[0].classList.remove('active')
+			}
+			this.classList.add('active')
+			document.getElementById('featured').src = this.src
+		})
+	}
+
+	let ButtonRight = document.getElementById('slideRight')
+	let ButtonLeft = document.getElementById('SlideLeft')
+
+	ButtonLeft.addEventListener('click', function () {
+		document.getElementById('slider').scrollLeft -= 180
+	})
+	ButtonRight.addEventListener('click', function () {
+		document.getElementById('slider').scrollLeft += 180
+	})
+</script>
+{% endblock extra_javascript %}
+<!-- 20113219188105320
+01/01/2011 -->

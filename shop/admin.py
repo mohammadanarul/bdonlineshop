@@ -1,5 +1,5 @@
 from django.contrib import admin
-from shop.models import Product, ProductImages
+from shop.models import Product, ProductImages, ReviewRating
 from variants.models import ProductVariant
 
 class ProductImagesInline(admin.TabularInline):
@@ -14,3 +14,5 @@ class ProductVariantInline(admin.TabularInline):
 @admin.register(Product)
 class ProductModelAdmin(admin.ModelAdmin):
     inlines = [ProductImagesInline, ProductVariantInline]
+
+admin.site.register(ReviewRating)

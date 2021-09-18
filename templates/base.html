@@ -1,38 +1,38 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/static/fontawesome/css/all.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
-<head>
-	<title>OneTech</title>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="description" content="OneTech shop project">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	{% include 'snippets/css.html' %}
 
-</head>
-
-<body>
-
-	<div class="super_container">
-
-		<!-- Start Header -->
-		{% include 'snippets/header.html' %}
-		<!-- end Header -->
-
-		<!-- start main -->
+    <title>{% block head_title %}{% endblock head_title %} | Online Shop</title>
+	{% block extra_head %}
 		
-		{% block content %}
+	{% endblock extra_head %}
+  </head>
+  <body>
+	{% include 'snippets/messages.html' %}
+	<!-- Start Header -->
+	{% include 'snippets/header.html' %}
+  <main class="container">
+    {% block content %}
 			
-		{% endblock content %}
-			
-		<!-- end main -->
+	{% endblock content %}
+  </main>
+    <!-- Optional JavaScript; choose one of the two! -->
 
-		<!-- start Footer -->
-		{% include 'snippets/footer.html' %}
-		<!-- / end footer -->
-	</div>
-	{% include 'snippets/js.html' %}
-</body>
+    <script src="{% static 'js/jquery-3.5.1.slim.min.js' %}"></script>
+	<script src="{% static 'js/popper.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="/static/js/main.js"></script>
 
+	{% block extra_javascript %}
+	{% endblock extra_javascript %}
+  </body>
 </html>

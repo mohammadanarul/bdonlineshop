@@ -6,6 +6,6 @@ from shop.models import Product
 class CategoryListPageView(View):
     template_name = 'category/category-list.html'
     def get(self, request, slug):
-        category = get_object_or_404(Category)
+        category = get_object_or_404(Category, slug=slug)
         objects = Product.objects.filter(category=category)
         return render(request, self.template_name, {'objects': objects})

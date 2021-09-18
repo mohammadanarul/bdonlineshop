@@ -13,7 +13,7 @@ class OrderProductSummaryView(LoginRequiredMixin, View):
         try:
             order = Order.objects.get(user=self.request.user, ordered=False)
             template_name = 'shop/cart.html'
-            return render(self.request, template_name, {'orders': order})
+            return render(self.request, template_name, {'object': order})
         except ObjectDoesNotExist:
             messages.info(self.request, 'You do not have an active  order.')
             next = self.request.META['HTTP_REFERER']

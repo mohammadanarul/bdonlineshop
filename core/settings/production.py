@@ -5,7 +5,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['https://bdonlineshop.herokuapp.com/', '127.0.0.1']
+ALLOWED_HOSTS = ['https://bdonlineshop.herokuapp.com/', '127.0.0.1','0.0.0.0']
 
 # database management
 DATABASES = {'default': dj_database_url.config()}

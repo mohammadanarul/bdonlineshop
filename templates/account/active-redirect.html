@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- website title section -->
+{% block head_title %}Activate your account{% endblock head_title %}
+
+<!-- Main content section -->
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto mt-5">
+                <div class="mt-5">
+                    <div class="card shadow text-center">
+                        <div class="card-body">
+                            <h2>Congratulations</h2>
+                            <p>Your account successfully activate.</p>
+                            <a href="{% url 'account:user_login' %}">Login..</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,9 +1,8 @@
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from six import text_type
 
+class AccountRegisterTokenGenerate(PasswordResetTokenGenerator):
+    def _make_hash_value(self, user, timestamp):
+        return (text_type(user.is_active) + text_type(user.pk) + text_type(timestamp))
 
-class accountRegisterTokenGenerate(PasswordResetTokenGenerator):
-    pass
-    # def _make_hash_value(self, user, timestamp):
-    #     return (render_to_string.text_type(user.id) + render_to_string.text_type(timestamp) + render_to_string.text_type(user.is_active))
-
-userAccountRegisterActiveTokenGenerate = accountRegisterTokenGenerate()
+UserAccountRegisterActiveTokenGenerate = AccountRegisterTokenGenerate()

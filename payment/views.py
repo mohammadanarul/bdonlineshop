@@ -6,6 +6,7 @@ from django.contrib import messages
 from .models import Address, Payment
 from payment.forms import CheckoutForm
 from orders.models import Order
+from account.models import Account
 
 import stripe
 stripe.api_key = "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
@@ -67,7 +68,7 @@ class CheckoutView(LoginRequiredMixin, View):
                         order.shipping_address = shipping_address
                         order.save()
                     else:
-                        message.info(request,"No Default shipping address available")
+                        messages.info(request,"No Default shipping address available")
                         return redirect('payment:checkout_view')
                 else:
                     shipping_address1 = form.cleaned_data.get('shipping_address')
@@ -91,7 +92,7 @@ class CheckoutView(LoginRequiredMixin, View):
                             shipping_address.default = True
                             shipping_address.save()
                     else:
-                        messages.info('Kindly fill in the required shipping address form.')
+                        messages.info(request, 'Kindly fill in the required shipping address form.')
 
                 use_default_billing = form.cleaned_data.get('use_default_billing')
                 same_billing_address = form.cleaned_data.get('same_billing_address')
@@ -141,17 +142,32 @@ class CheckoutView(LoginRequiredMixin, View):
                     else:
                         messages.info(request, 'Please fill in the required billing address form')
                 payment_option = form.cleaned_data.get('payment_option')
+                if payment_option == 'Cash on Delivery':
+                    order = Order.objects.get(user=request.user, ordered=False)
+                    payment = Payment()
+                    payment.stripe_charge_id = order.id
+                    payment.user = request.user
+                    payment.amount = order.get_total_price()
+                    payment.save()
+
+                    # assign the payment to the order
+                    order_items = order.items.all()
+                    for item in order_items:
+                        item.ordered = True
+                        item.save()
+                    order.ordered = True
+                    order.payment = payment
+                    order.save()
+                    messages.success(self.request, "Your order was successful!")
+                    return redirect("/")
                 if payment_option == 'Stripe':
-                    return redirect('payment:payment_view', payment_option='stripe')
+                    return redirect('payment:stripe_payment_view', payment_option='stripe')
                 elif payment_option == 'PayPal':
-                    return redirect('payment:payment_view', payment_option='paypal')
+                    return redirect('payment:paypal_payment_view', payment_option='paypal')
                     messages.info(request, 'Not Active paypal services...')
-                elif payment_option == 'Bkash':
-                    return redirect('payment:payment_view', payment_option='bkash')
-                    messages.info(request, 'Not Active Bkash services...')
-                elif payment_option == 'Nagat':
-                    return redirect('payment:payment_view', payment_option='nagat')
-                    messages.info(request, 'Not Active Nagot services...')
+                elif payment_option == 'sslcommerz':
+                    return redirect('payment:sslcommerz_payment_view', payment_option='sslcommerz')
+                    messages.info(request, 'Not Active sslcommerz services...')
                 else:
                     messages.warning(request, 'Invalid payment option selected.')
                     return redirect('payment:checkout_view')
@@ -162,16 +178,15 @@ class CheckoutView(LoginRequiredMixin, View):
             messages.info(self.request, 'Invalid Your Address.')
             return redirect('/')
 
-class PaymentView(View):
-    template_name = "payment/payment1.html"
+class StripePaymentView(View):
+    template_name = "payment/stripe.html"
     def get(self, request, *args, **kwargs):
-        STRIPE_LIVE_PUBLIC_KEY = "pk_test_51JPXu7JFipACGFVNll3Q3Wr5gurx3f2navfqV3d9TYwQq7ft16lzC1GsP5Wve4jEKNCqxqi7DGko9FKKd3RHjv1K00lLLVPfEZ"
-        return render(request, self.template_name, {'STRIPE_LIVE_PUBLIC_KEY': STRIPE_LIVE_PUBLIC_KEY})
+        return render(request, self.template_name)
     
     def post(self, request, *args, **kwargs):
         order = Order.objects.get(user=request.user, ordered=False)
         token = request.POST.get('stripeToken')
-        # userprofile = UserProfile.objects.get(user=self.request.user)
+        # userprofile = Account.objects.get(user=self.request.user)
         # if form.is_valid():
         #     token = form.cleaned_data.get('stripeToken')
         #     save = form.cleaned_data.get('save')
@@ -203,13 +218,13 @@ class PaymentView(View):
             payment = Payment()
             payment.stripe_charge_id = charge['id']
             payment.user = request.user
-            payment.amount = order.get_total_price()
+            payment.amount = amount
             payment.save()
 
             # assign the payment to the order
             order_items = order.items.all()
-            order_items.upload_to(ordered=True)
             for item in order_items:
+                item.ordered = True
                 item.save()
             order.ordered = True
             order.payment = payment
@@ -256,5 +271,112 @@ class PaymentView(View):
             messages.warning(
                 self.request, "A serious error occurred. We have been notifed.")
             return redirect("/")
+
+class PapalPaymentView(View):
+    template_name = "payment/paypal.html"
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+    
+    def post(self, request, *args, **kwargs):
+        order = Order.objects.get(user=request.user, ordered=False)
+        token = request.POST.get('stripeToken')
+        # userprofile = Account.objects.get(user=self.request.user)
+        # if form.is_valid():
+        #     token = form.cleaned_data.get('stripeToken')
+        #     save = form.cleaned_data.get('save')
+        #     use_default = form.cleaned_data.get('use_default')
+
+        #     if save:
+        #         if userprofile.stripe_customer_id != '' and userprofile.stripe_customer_id is not None:
+        #             customer = stripe.Customer.retrieve(
+        #                 userprofile.stripe_customer_id)
+        #             customer.sources.create(source=token)
+
+        #         else:
+        #             User = stripe.Customer.create(
+        #                 email=self.request.user.email,
+        #             )
+        #             customer.sources.create(source=token)
+        #             userprofile.stripe_customer_id = customer['id']
+        #             userprofile.one_click_purchasing = True
+        #             userprofile.save()
+        amount = int(order.get_total_price() * 100)
+        # charge once off on the token
+        charge = stripe.Charge.create(
+        amount=amount, #cents
+        currency="usd",
+        source=token,
+        )
+        # create the payment
+        payment = Payment()
+        payment.stripe_charge_id = charge['id']
+        payment.user = request.user
+        payment.amount = amount
+        payment.save()
+
+        # assign the payment to the order
+        order_items = order.items.all()
+        for item in order_items:
+            item.ordered = True
+            item.save()
+        order.ordered = True
+        order.payment = payment
+        order.save()
+        messages.success(self.request, "Your order was successful!")
+        return redirect("/")
+        
+
+class SSLCommerzPaymentView(View):
+    template_name = "payment/payment.html"
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+    
+    def post(self, request, *args, **kwargs):
+        order = Order.objects.get(user=request.user, ordered=False)
+        token = request.POST.get('stripeToken')
+        # userprofile = Account.objects.get(user=self.request.user)
+        # if form.is_valid():
+        #     token = form.cleaned_data.get('stripeToken')
+        #     save = form.cleaned_data.get('save')
+        #     use_default = form.cleaned_data.get('use_default')
+
+        #     if save:
+        #         if userprofile.stripe_customer_id != '' and userprofile.stripe_customer_id is not None:
+        #             customer = stripe.Customer.retrieve(
+        #                 userprofile.stripe_customer_id)
+        #             customer.sources.create(source=token)
+
+        #         else:
+        #             User = stripe.Customer.create(
+        #                 email=self.request.user.email,
+        #             )
+        #             customer.sources.create(source=token)
+        #             userprofile.stripe_customer_id = customer['id']
+        #             userprofile.one_click_purchasing = True
+        #             userprofile.save()
+        amount = int(order.get_total_price() * 100)
+            # charge once off on the token
+        charge = stripe.Charge.create(
+        amount=amount, #cents
+        currency="usd",
+        source=token,
+        )
+        # create the payment
+        payment = Payment()
+        payment.stripe_charge_id = charge['id']
+        payment.user = request.user
+        payment.amount = amount
+        payment.save()
+
+        # assign the payment to the order
+        order_items = order.items.all()
+        for item in order_items:
+            item.ordered = True
+            item.save()
+        order.ordered = True
+        order.payment = payment
+        order.save()
+        messages.success(self.request, "Your order was successful!")
+        return redirect("/")
 
 

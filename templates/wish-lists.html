@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_title %}Wishlist{% endblock head_title %}
+<!-- Extra head -->
+{% block extra_head %}
+<style>
+    .wishlist {
+        margin: 0;
+        font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-size: .8125rem;
+        font-weight: 400;
+        line-height: 1.5385;
+        color: #333;
+        text-align: left;
+    }
+
+    .mt-50 {
+        margin-top: 50px
+    }
+
+    .mb-50 {
+        margin-bottom: 50px
+    }
+
+    .bg-teal-400 {
+        background-color: #26a69a
+    }
+
+    a {
+        text-decoration: none !important
+    }
+
+    .review-rating {
+        color: #ffb503;
+        ;
+    }
+</style>
+{% endblock extra_head %}
+<!-- main content -->
+{% block content %}
+<div class="wishlist d-flex justify-content-center mt-50 mb-50">
+    <div class="row">
+        <div class="col-md-8 m-auto">
+            {% for object in object_list %}
+            <div class="card card-body">
+                <div
+                    class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
+                    <div class="mr-2 mb-3 mb-lg-0"> <img src="{{ object.product.image.url }}" width="150" height="150"
+                            alt=""> </div>
+                    <div class="media-body">
+                        <h6 class="media-title font-weight-semibold"> <a href="{{ object.product.get_absolute_url }}"
+                                data-abc="true">{{ object.product.title }}</a> </h6>
+                        <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
+                            <li class="list-inline-item"><a href="#" class="text-muted"
+                                    data-abc="true">{{ object.product.category }}</a></li>
+                            <li class="list-inline-item"><a href="#" class="text-muted" data-abc="true">Mobiles</a></li>
+                        </ul>
+                        <p class="mb-3">{{ object.product.product_details|slice:"150"}} </p>
+                        <ul class="list-inline list-inline-dotted mb-0">
+                            <li class="list-inline-item">All items from <a href="#" data-abc="true">Mobile point</a>
+                            </li>
+                            <li class="list-inline-item">Add to <a href="{{ object.product.get_absolute_url }}"
+                                    data-abc="true">Detail</a></li>
+                        </ul>
+                    </div>
+                    <div class="mt-3 mt-lg-0 ml-lg-3 text-center">
+                        <h3 class="mb-0 font-weight-semibold"><span
+                                class="mr-1">&#x9f3;</span>{{ object.product.price|floatformat:"0"}}</h3>
+                        <div>
+                            <div class="review-rating">
+                                <i class="{% if object.product.average_rating < 0.5 %}far fa-star{% elif object.product.average_rating >= 0.5 and object.product.average_rating < 1 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}"
+                                    aria-hidden="true"></i>
+                                <i class="{% if object.product.average_rating < 1.5 %}far fa-star{% elif object.product.average_rating >= 1.5 and object.product.average_rating < 2 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}"
+                                    aria-hidden="true"></i>
+                                <i class="{% if object.product.average_rating < 2.5 %}far fa-star{% elif object.product.average_rating >= 2.5 and object.product.average_rating < 3 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}"
+                                    aria-hidden="true"></i>
+                                <i class="{% if object.product.average_rating < 3.5 %}far fa-star{% elif object.product.average_rating >= 3.5 and object.product.average_rating < 4 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}"
+                                    aria-hidden="true"></i>
+                                <i class="{% if object.product.average_rating < 4.5 %}far fa-star{% elif object.product.average_rating >= 4.5 and object.product.average_rating < 5 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}"
+                                    aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="text-muted mt-5">
+                            <a style="color: red;" href="{% url 'wishlist:wishlist_delete_view' object.pk %}"
+                                class="btn btn-warning">
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                            <a href="{% url 'order:add_to_cart' object.product.slug %}"
+                                class="btn btn-primary text-white"><i class="icon-cart-add mr-2"></i> Add to
+                                cart</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <p class="text-center m-0">Not an active wishlist product.</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+    {% block extra_javascript %}
+    {% endblock extra_javascript %}

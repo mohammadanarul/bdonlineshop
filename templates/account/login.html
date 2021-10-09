@@ -1,0 +1,35 @@
+<!-- main html template import -->
+{% extends 'base.html' %}
+<!-- head title -->
+{% block head_title %}Login{% endblock head_title %}
+<!-- Extra head -->
+{% block extra_head %}
+{% endblock extra_head %}
+<!-- main content -->
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-xl-6 m-auto">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input class="form-control" type="text" name="username" placeholder="username or Email">
+                        <input class="form-control mt-3" type="password" name="password" placeholder="password">
+                        <input type="submit" value="Login" class="btn btn-primary mt-3">
+                    </form>
+                    <hr>
+                    <div>
+                        <a href="{% url 'account:password_reset_view' %}" class="text-center">Forgot password?</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <a href="{% url 'account:user_register' %}" class="text-center pt-3"><span style="color: black; padding-right: 5px;" class="m-0">Don't have an account?</span><strong>Register</strong></a> <br>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block extra_javascript %}
+{% endblock extra_javascript %}

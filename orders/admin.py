@@ -8,4 +8,4 @@ class OrderItemModelAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderModelAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user', 'ordered', 'payment', 'ordered_date')

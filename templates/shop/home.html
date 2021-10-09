@@ -35,12 +35,12 @@
                                         <a class="product-title" href="{{ top_product.get_absolute_url }}">{{ top_product.title }}</a>
                                     </section>
                                     <section class="text-center ml-3 f-left">
-                                        ${{ top_product.price }} <del>160</del>
+                                        <span class="mr-1">&#x9f3;</span>{{ top_product.price|floatformat:"0" }} <del>160</del>
                                     </section>
                                     <section>
 										<div class="btn btn-group">
-											<a class="btn btn-primary"><i class="fas fa-shopping-cart"></i></a>
-											<a class="btn btn-primary"><i class="far fa-heart"></i></a>
+											<a href="{% url 'order:add_to_cart' top_product.slug %}" class="btn btn-primary"><i class="fas fa-shopping-cart"></i></a>
+											<a href="{% url 'wishlist:wishlist_add_view' top_product.slug %}" class="btn btn-primary"><i class="far fa-heart"></i></a>
 										</div>
 									</section>
                                 </div>
@@ -63,12 +63,12 @@
                                         <a class="product-title" href="{{ featured_item.get_absolute_url }}">{{ featured_item.title }}</a>
                                     </section>
                                     <section class="text-center ml-3 f-left">
-                                        ${{ featured_item.price }} <del>160</del>
+                                        <span class="mr-1">&#x9f3;</span>{{ featured_item.price|floatformat:"0" }} <del>160</del>
                                     </section>
                                     <section>
 										<div class="btn btn-group">
-											<a class="btn btn-primary"><i class="fas fa-shopping-cart"></i></a>
-											<a class="btn btn-primary"><i class="far fa-heart"></i></a>
+											<a href="{% url 'order:add_to_cart' featured_item.slug %}" class="btn btn-primary"><i class="fas fa-shopping-cart"></i></a>
+											<a href="{% url 'wishlist:wishlist_add_view' featured_item.slug %}" class="btn btn-primary"><i class="far fa-heart"></i></a>
 										</div>
 									</section>
                                 </div>
@@ -91,12 +91,12 @@
                                         <a class="product-title" href="{{ on_sale_item.get_absolute_url }}" class="text-center">{{ on_sale_item.title }}</a>
                                     </section>
                                     <section class="text-center ml-3 f-left">
-                                        ${{ on_sale_item.price }} <del>160</del>
+                                        <span class="mr-1">&#x9f3;</span>{{ on_sale_item.price|floatformat:"0" }} <del>160</del>
                                     </section>
                                     <section>
 										<div class="btn btn-group">
-											<a class="btn btn-primary"><i class="fas fa-shopping-cart"></i></a>
-											<a class="btn btn-primary"><i class="far fa-heart"></i></a>
+											<a href="{% url 'order:add_to_cart' on_sale_item.slug %}" class="btn btn-primary"><i class="fas fa-shopping-cart"></i></a>
+											<a href="{% url 'wishlist:wishlist_add_view' on_sale_item.slug %}" class="btn btn-primary"><i class="far fa-heart"></i></a>
 										</div>
 									</section>
                                 </div>

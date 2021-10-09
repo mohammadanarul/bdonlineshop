@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- website title section -->
+{% block head_title %}Activation link invalid{% endblock head_title %}
+
+<!-- Main content section -->
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-xl-6 m-auto mt-5">
+            <div class="mt-5">
+                <div class="card shadow text-center">
+                    <div class="card-body">
+                        <h1>Sorry</h1>
+                        <p>Your activation link not valid.</p>
+                        <a href="{% url 'account:user_register' %}">Register..</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

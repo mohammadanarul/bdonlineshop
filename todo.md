@@ -8,7 +8,7 @@
     6. Hot New Arrivals
     7. Done Hot Best seller
     8. Trends
-    9. Latest Reviews
+    9. Done Latest Reviews
     10. Done Recently Viewed
 
 

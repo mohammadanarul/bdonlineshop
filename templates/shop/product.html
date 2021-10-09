@@ -179,10 +179,9 @@
 				<i class="{% if object.average_rating < 2.5 %}far fa-star{% elif object.average_rating >= 2.5 and object.average_rating < 3 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
 				<i class="{% if object.average_rating < 3.5 %}far fa-star{% elif object.average_rating >= 3.5 and object.average_rating < 4 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
 				<i class="{% if object.average_rating < 4.5 %}far fa-star{% elif object.average_rating >= 4.5 and object.average_rating < 5 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
-				review <i class="{{object.average_rating}}"></i>
 			</div>
 			<hr>
-			<h3>{{ object.price }}</h3>
+			<h3<span class="mr-1">&#x9f3;</span>{{ object.price|floatformat:"0" }}</h3>
 			<p>
 				Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, cupiditate saepe quaerat nisi quo
 				fugiat natus. Voluptate quos, distinctio voluptatem commodi reiciendis ullam consequuntur. Accusantium
@@ -192,8 +191,8 @@
 			<section class="quantity-section">
 				<input type="number" value="1" class="form-control quantity">
 				<div class="ml-2">
-					<a class="btn btn-primary"><i class="fas fa-shopping-cart"></i></a>
-					<a class="btn btn-primary"><i class="far fa-heart"></i></a>
+					<a href="{% url 'order:add_to_cart' object.slug %}" class="btn btn-primary"><i class="fas fa-shopping-cart"></i></a>
+					<a href="{% url 'wishlist:wishlist_add_view' object.slug %}" class="btn btn-primary"><i class="far fa-heart"></i></a>
 				</div>
 			</section>
 		</div>

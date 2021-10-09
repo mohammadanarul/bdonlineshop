@@ -1,16 +1,16 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import View, ListView
+from django.views.generic import View, ListView, DeleteView
 from django.contrib import messages
 from shop.models import Product
 from .models import Wishlist
 
 class WishListView(LoginRequiredMixin, View):
-    template_name = 'post/favorite-list.html'
+    template_name = 'wish-lists.html'
     def get(self, request, *args, **kwargs):
-        wishlist = Product.objects.filter(wishlist=request.user)
-        return render(request, self.template_name, {'wishlist_list': favorite})
+        wishlist = Wishlist.objects.filter(user=request.user)
+        return render(request, self.template_name, {'object_list': wishlist})
         
 class WishListAddView(LoginRequiredMixin, View):
     def get(self, request, slug):
@@ -26,3 +26,18 @@ class WishListAddView(LoginRequiredMixin, View):
             wishlist.save()
         next = request.META['HTTP_REFERER']
         return HttpResponseRedirect(next)
+
+class SingeWishListDeleteView(LoginRequiredMixin, DeleteView):
+    # specify the model you want to use
+    model = Wishlist
+     
+    # can specify success url
+    # url to redirect after successfully
+    # deleting object
+    success_url = '/wishlist/list/'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.user != self.request.user:
+            return redirect(self.success_url)
+        return super().post(request, *args, **kwargs)

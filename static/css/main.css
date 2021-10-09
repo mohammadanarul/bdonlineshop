@@ -56,3 +56,23 @@ a{
     height: 298px;
     width: 100%;
 } */
+
+/* cart wrapper */
+.card-grid-header{
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+.card-grid-body{
+display: grid;
+grid-template-columns: repeat(8, 1fr);
+text-align: center;
+align-items: center;
+justify-content: center;
+}
+.cart-product-image{
+    height: 60px;
+    width: 70px;
+}

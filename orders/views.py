@@ -18,6 +18,7 @@ class OrderProductSummaryView(LoginRequiredMixin, View):
             messages.info(self.request, 'You do not have an active  order.')
             next = self.request.META['HTTP_REFERER']
             return HttpResponseRedirect(next)
+        
 class AddToCart(LoginRequiredMixin, View):
     def get(self, request, slug, *args, **kwargs):
         item = get_object_or_404(Product, slug=slug)

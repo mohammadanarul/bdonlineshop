@@ -11,6 +11,7 @@ urlpatterns = [
     path('order/', include('orders.urls', namespace='order')),
     path('payment/', include('payment.urls', namespace='payment')),
     path('wishlist/', include('wishlists.urls', namespace='wishlist')),
+    path('auth', include('django.contrib.auth.urls')),
 ]
 
 if settings.DEBUG:

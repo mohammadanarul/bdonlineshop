@@ -3,10 +3,10 @@ from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
 
 PAYMENT_CHOICES = (
+    ('Cash on Delivery', 'Cash on Delivery'),
     ('Stripe', 'Stripe'),
     ('PayPal', 'PayPal'),
-    ('Bkash', 'Bkash'),
-    ('Nagot', 'Nagot'),
+    ('SSLCommerz', 'sslcommerz'),
 )
 
 class CheckoutForm(forms.Form):

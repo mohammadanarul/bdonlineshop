@@ -16,60 +16,31 @@
 {% endblock extra_javascript %}
 
 {% load mptt_tags %}
-<ul>
-    {% recursetree genres %}
-        <li>
-            {{ node.name }}
-            {% if not node.is_leaf_node %}
-                <ul class="children">
-                    {{ children }}
-                </ul>
-            {% endif %}
-        </li>
-    {% endrecursetree %}
-</ul>
 
-
-<div class="row">
-    <div class="col-xl-8">
-        <div class="row">
-            <div class="col-xl-4">
-                <section>
-                    <i class="fa fa-arrow-up"></i>
-                </section>
-                <div id="slider">
-                    {% for image in object.productimages_set.all %}
-                            <img class="sub-image" src="{{image.images.url}}" alt="">
-                    {% endfor %}
-                </div>
-                <section>
-                    <i class="fa fa-arrow-down"></i>
-                </section>
-
-            </div>
-            <div class="col-xl-8">
-                <div class="card p-2">
-                    <img id="featured" class="main-image active" src="{{ object.image.url }}" alt="main product image">
-                </div>
-            </div>
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="float-left">
+            <span> {{ object.product.title }}</span>
+            <p class="m-0">{{ object.product.price }}</p>
         </div>
-    </div>
-    <div class="col-xl-4">
-        <div class="card">
-            <div class="card-body">
-                {{ object.title}}
-                <hr>
-                <section class="price">
-                    ${{ object.price}} <del>{{ object.discount_price}}</del>
-                </section>
-                <p>
-                    {{ object.product_details }}
-                </p>
-                <div class="btn btn-group">
-                    <a class="btn btn-primary">Add to cart</a>
-                    <a class="btn btn-primary">Wishlist</a>
-                </div>
-            </div>
-        </div>
+        <a style="color: red;" href="{% url 'wishlist:wishlist_delete_view' object.pk %}" class="m-0 float-right">
+            <i class="far fa-trash-alt"></i>
+        </a>
     </div>
 </div>
+
+
+<ul class="list-group text-left mt-4">
+    {% for object in orders.items.all %}
+    <li class="list-group-item">
+        {{ object.item.title }}
+        {{ object.item.quantity }}
+        {{ object.item.ordered }}
+    </li>
+    {% endfor %}
+    <li class="list-group-item text-sucess">
+        <p>Total Price: {{ orders.get_total_price|floatformat:"0" }}</p>
+        <p>Total Save: {{ orders.get_save_ammount|floatformat:"0" }}</p>
+        <p>Payment option: {{ orders.payment.payment_option }}</p>
+    </li>
+</ul>

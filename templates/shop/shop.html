@@ -10,62 +10,12 @@
 <!-- Extra head -->
 {% block extra_head %}
 <style>
-	.shop-site-nav>nav {
-		width: 250px;
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		background-color: rgb(0, 0, 0, 0.1);
-		border-radius: 10px;
-		box-sizing: 5px 7px 10px rgba(0, 0, 0, .1);
-	}
-
-	.shop-site-nav nav ul {
-		position: relative;
-		list-style-type: none;
-	}
-
-	.shop-site-nav nav ul li>a {
-		display: flex;
-		align-items: center;
-		font-family: Arial;
-		font-size: 1.15rem;
-		text-decoration: none;
-		text-transform: capitalize;
-		color: #000;
-		padding: 10px 30px;
-		height: 50px;
-	}
-
-	.shop-site-nav nav ul li a:hover {
-		background-color: rgba(0, 0, 0, .7);
-	}
-
-	.shop-site-nav nav ul ul {
-		position: absolute;
-		left: 250px;
-		width: 200px;
-		top: 0;
-		display: none;
-		color: #000;
-		background-color: rgb(0, 0, 0, 0.1);
-		border-radius: 5px;
-		box-shadow: 2px 2px 10px rgba(0, 0, 0, .1);
-	}
-
-	.shop-site-nav nav ul span {
-		position: absolute;
-		right: 20px;
-		font-size: 1.5em;
-	}
-
-	.shop-site-nav nav ul .dropdown {
-		position: relative;
-	}
-
-	.shop-site-nav nav ul .dropdown:hover ul {
-		display: initial;
-		z-index: 100;
+	.sidebar li .submenu {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		padding-left: 1rem;
+		padding-right: 1rem;
 	}
 </style>
 {% endblock extra_head %}
@@ -78,15 +28,14 @@
 	<div class="row mt-3">
 		<div class="col-xl-3">
 			<section class="shop-site-nav">
-				<nav>
-					<ul>
+				<nav class="sidebar card py-2 mb-4">
+					<ul class="nav flex-column" id="nav_accordion">
 						{% category_tags as category %}
 						{% recursetree category %}
-						<li class="dropdown">
-							<a
-								href="{% url 'category:category_list' node.slug %}">{{ node.name }}<span>&rsaquo;</span></a>
+						<li class="nav-item has-submenu">
+							<a class="nav-link" href="{% url 'category:category_list' node.slug %}">{{ node.name }}{% if not node.is_leaf_node %} <i class="fas fa-chevron-down ml-3"></i>{% endif %}</a>
 							{% if not node.is_leaf_node %}
-							<ul>
+							<ul class="submenu collapse">
 								{{ children }}
 							</ul>
 							{% endif %}
@@ -109,12 +58,14 @@
 										class="text-center">{{ object.title }}</a>
 								</section>
 								<section>
-									${{ object.price }}<del>160</del>
+									<span class="mr-1">&#x9f3;</span>{{ object.price|floatformat:"0" }}<del>160</del>
 								</section>
 								<section>
 									<div class="btn btn-group">
-										<a class="btn btn-primary"><i class="fas fa-shopping-cart"></i></a>
-										<a class="btn btn-primary"><i class="far fa-heart"></i></a>
+										<a href="{% url 'order:add_to_cart' object.slug %}" class="btn btn-primary"><i
+												class="fas fa-shopping-cart"></i></a>
+										<a href="{% url 'wishlist:wishlist_add_view' object.slug %}"
+											class="btn btn-primary"><i class="far fa-heart"></i></a>
 									</div>
 								</section>
 							</div>
@@ -129,4 +80,34 @@
 </div>
 {% endblock content %}
 {% block extra_javascript %}
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		document.querySelectorAll('.sidebar .nav-link').forEach(function (element) {
+
+			element.addEventListener('click', function (e) {
+
+				let nextEl = element.nextElementSibling;
+				let parentEl = element.parentElement;
+
+				if (nextEl) {
+					e.preventDefault();
+					let mycollapse = new bootstrap.Collapse(nextEl);
+
+					if (nextEl.classList.contains('show')) {
+						mycollapse.hide();
+					} else {
+						mycollapse.show();
+						// find other submenus with class=show
+						var opened_submenu = parentEl.parentElement.querySelector('.submenu.show');
+						// if it exists, then close all of them
+						if (opened_submenu) {
+							new bootstrap.Collapse(opened_submenu);
+						}
+					}
+				}
+			}); // addEventListener
+		}) // forEach
+	});
+	// DOMContentLoaded  end
+</script>
 {% endblock extra_javascript %}

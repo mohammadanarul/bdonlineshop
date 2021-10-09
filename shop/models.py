@@ -5,7 +5,13 @@ from django.utils.translation import ugettext_lazy as _
 from category.models import Category
 from brands.models import Brand
 from django.urls import reverse
+from cloudinary.models import CloudinaryField
 User = settings.AUTH_USER_MODEL
+
+# class MyCloudinaryField(CloudinaryField):
+#     def upload_options(self, model_instance):
+#         profile_avatar_name = {'public_id': model_instance.user.id + "-" + model_instance.pk}
+#         return profile_avatar_name
 
 class Product(models.Model):
 
@@ -21,7 +27,7 @@ class Product(models.Model):
     category            =   models.ForeignKey(Category, verbose_name=_('category'), related_name='products', on_delete=models.CASCADE)
     brand               =   models.ForeignKey(Brand, verbose_name=_("brand"), on_delete=models.CASCADE)
     product_details     =   models.TextField(verbose_name=_('priduct details'))
-    image               =   models.ImageField(verbose_name=_('image'), upload_to='product_images/')
+    image               =   CloudinaryField(transformation=[{"quality":"auto:best",},{'height': 250, 'width': 250}])
     variant             =   models.CharField(_("variant"), max_length=15, choices=VARIANTS, default='None')
     slug                =   models.SlugField(verbose_name=_('slug'), unique=True, blank=True)
     is_featured         =   models.BooleanField(_("featured"), default=False)
@@ -63,7 +69,7 @@ class Product(models.Model):
 
 class ProductImages(models.Model):
     product             =   models.ForeignKey(Product, on_delete=models.CASCADE)
-    images              =   models.ImageField(upload_to='product_images/')
+    images              =   CloudinaryField(transformation=[{"quality":"auto:best",},{'height': 250, 'width': 250}])
 
 
 class ReviewRating(models.Model):

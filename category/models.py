@@ -3,10 +3,11 @@ from django.urls import reverse
 from django.utils.text import slugify
 from mptt.models import MPTTModel, TreeForeignKey
 from django.utils.translation import ugettext_lazy as _
+from cloudinary.models import CloudinaryField
 
 class Category(MPTTModel):
     name = models.CharField(max_length=255, unique=True)
-    image = models.ImageField(_("image"), upload_to='category/')
+    image               =   CloudinaryField(transformation=[{"quality":"auto:best",},{'height': 150, 'width': 150}])
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     slug = models.SlugField(unique=True, blank=True)
     

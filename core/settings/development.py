@@ -1,12 +1,12 @@
 from .base import *
 
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 SECRET_KEY = config('SECRET_KEY')
 # DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', '*']
 
-INSTALLED_APPS += ['debug_toolbar',]
+INSTALLED_APPS += ['debug_toolbar']
 
 MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware',]
 
@@ -50,3 +50,11 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = config('EMAIL_BACKEND')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+
+
+cloudinary.config( 
+  cloud_name = config('cloud_name'),
+  api_key = config('api_key'), 
+  api_secret = config('api_secret')
+)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

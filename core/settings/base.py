@@ -14,6 +14,7 @@ AUTHENTICATION_BACKENDS = [
 
 # Application definition
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -117,3 +118,5 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 LOGIN_URL = 'account:user_login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'account:user_login'
+# whitenoise collectstatic
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

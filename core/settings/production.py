@@ -5,7 +5,7 @@ SECRET_KEY = config('SECRET_KEY', '3dpc0ko^pq=2egiz26@yur9zi^=qbr5%%0*_3m#5l0gq-
 
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['https://bdonlineshop.herokuapp.com/', '127.0.0.1','0.0.0.0']
+ALLOWED_HOSTS = ['https://bdonlineshop.herokuapp.com/','*']
 
 # database management
 DATABASES = {'default': dj_database_url.config()}
@@ -13,9 +13,6 @@ DATABASES = {'default': dj_database_url.config()}
 # Configure Django App for Heroku.
 import django_heroku
 django_heroku.settings(locals())
-
-# whitenoise collectstatic
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')

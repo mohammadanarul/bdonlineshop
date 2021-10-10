@@ -120,3 +120,5 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'account:user_login'
 # whitenoise collectstatic
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

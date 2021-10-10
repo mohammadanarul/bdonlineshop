@@ -7,6 +7,8 @@ DEBUG = True
 # SECRET_KEY = config('SECRET_KEY', '3dpc0ko^pq=2egiz26@yur9zi^=qbr5%%0*_3m#5l0gq-xhm!2_a&m%e@n_a+toma+Anarul>')
 
 # DEBUG = config('DEBUG', cast=bool)
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ALLOWED_HOSTS = ['https://bdonlineshop.herokuapp.com/','*']
 

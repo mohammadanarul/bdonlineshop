@@ -1,8 +1,7 @@
 from .base import *
 
-DEBUG = config('DEBUG', cast=bool)
 SECRET_KEY = config('SECRET_KEY')
-# DEBUG = config('DEBUG', cast=bool)
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['127.0.0.1', '*']
 

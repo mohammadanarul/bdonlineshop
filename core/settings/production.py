@@ -1,7 +1,7 @@
 from .base import *
 import dj_database_url
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY', '3dpc0ko^pq=2egiz26@yur9zi^=qbr5%%0*_3m#5l0gq-xhm!2_a&m%e@n_a+toma+Anarul>')
 
 DEBUG = config('DEBUG', cast=bool)
 

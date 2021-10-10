@@ -7,7 +7,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(
 
 # custom account connect settings
 AUTH_USER_MODEL = 'account.Account'
-AUTHENTICATION_BACKENDS = ['account.backends.EmailOrUsernameBackend'] # new
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.AllowAllUsersModelBackend',
+    'account.backends.EmailOrUsernameBackend'
+    ] # new
 
 # Application definition
 INSTALLED_APPS = [
@@ -107,9 +110,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-MEDIA_URL = '/media/'
+MEDIA_URL = '/media/'  # or any prefix you choose
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
 
 # User login and logout redirection
 LOGIN_URL = 'account:user_login'

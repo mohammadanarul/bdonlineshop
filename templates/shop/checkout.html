@@ -2,8 +2,6 @@
 {% load static %}
 {% block head_title %}Checkout{% endblock head_title %}  
 {% block extra_head %}
-<link rel="stylesheet" type="text/css" href="{% static 'styles/cart_styles.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'styles/cart_responsive.css' %}">
 {% endblock extra_head %}
 {% block content %}
 <div class="container">
@@ -156,7 +154,6 @@
   </div>
 {% endblock content %}
 {% block extra_javascript %}
-<script src="{% static 'js/cart_custom.js' %}"></script>
 <script>
     var hideable_shipping_form = $('.hideable_shipping_form');
     var hideable_billing_form = $('.hideable_billing_form');

@@ -35,7 +35,7 @@
                                         <a class="product-title" href="{{ top_product.get_absolute_url }}">{{ top_product.title }}</a>
                                     </section>
                                     <section class="text-center ml-3 f-left">
-                                        <span class="mr-1">&#x9f3;</span>{{ top_product.price|floatformat:"0" }} <del>160</del>
+                                        <span class="mr-1">&#x9f3;</span>{{ top_product.price|floatformat:"2" }} <del style="font-size: small; color: red; padding-left: 3px;">{{ top_product.discount_price|floatformat:"2" }}</del>
                                     </section>
                                     <section>
 										<div class="btn btn-group">
@@ -63,7 +63,7 @@
                                         <a class="product-title" href="{{ featured_item.get_absolute_url }}">{{ featured_item.title }}</a>
                                     </section>
                                     <section class="text-center ml-3 f-left">
-                                        <span class="mr-1">&#x9f3;</span>{{ featured_item.price|floatformat:"0" }} <del>160</del>
+                                        <span class="mr-1">&#x9f3;</span>{{ featured_item.price|floatformat:"2" }} <del style="font-size: small; color: red; padding-left: 3px;">{{ featured_item.discount_price|floatformat:"2" }}</del>
                                     </section>
                                     <section>
 										<div class="btn btn-group">
@@ -91,7 +91,7 @@
                                         <a class="product-title" href="{{ on_sale_item.get_absolute_url }}" class="text-center">{{ on_sale_item.title }}</a>
                                     </section>
                                     <section class="text-center ml-3 f-left">
-                                        <span class="mr-1">&#x9f3;</span>{{ on_sale_item.price|floatformat:"0" }} <del>160</del>
+                                        <span class="mr-1">&#x9f3;</span>{{ on_sale_item.price|floatformat:"2" }} <del style="font-size: small; color: red; padding-left: 3px;">{{ on_sale_item.discount_price|floatformat:"2" }}</del>
                                     </section>
                                     <section>
 										<div class="btn btn-group">
@@ -109,7 +109,7 @@
         </div>
     </section>
     <div class="card p-3 mt-3">
-        || Popular Category
+        <h6 class="m-0">Popular Category</h6>
     </div>
     <div class="row">
         

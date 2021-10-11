@@ -67,7 +67,7 @@
 {% block content %}
 	<div class="container">
 		<div class="card p-3 mt-3 d-flex flex-row">
-			<a href="/">Home </a> | <a href="{% url 'shop:shop_view' %}"> Shop</a>
+			<h6 class="m-0">Category List</h6>
 		</div>
 		<div class="row mt-3">
             {% for object in objects %}
@@ -81,8 +81,10 @@
                             </section>
                             <section>
                                 <div class="btn btn-group">
-                                    <a class="btn btn-primary"><i class="fas fa-shopping-cart"></i></a>
-                                    <a class="btn btn-primary"><i class="far fa-heart"></i></a>
+                                    <a href="{% url 'order:add_to_cart' object.slug %}" class="btn btn-primary"><i
+										class="fas fa-shopping-cart"></i></a>
+								<a href="{% url 'wishlist:wishlist_add_view' object.slug %}"
+									class="btn btn-primary"><i class="far fa-heart"></i></a>
                                 </div>
                             </section>
                         </div>

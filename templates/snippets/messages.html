@@ -1,7 +1,9 @@
-{% if messages %}
+<script>
     {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}" role="alert">
-            {{ message }}
-        </div>
+
+        alertify.set('notifier','position', 'top-right');
+        alertify.success('{{ message }}');
+
+            
     {% endfor %}
-{% endif %}
+</script>

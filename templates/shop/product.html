@@ -181,7 +181,7 @@
 				<i class="{% if object.average_rating < 4.5 %}far fa-star{% elif object.average_rating >= 4.5 and object.average_rating < 5 %}fas fa-star-half-alt{% else %}fas fa-star{% endif %}" aria-hidden="true"></i>
 			</div>
 			<hr>
-			<h3<span class="mr-1">&#x9f3;</span>{{ object.price|floatformat:"0" }}</h3>
+			<h3<span class="mr-1">&#x9f3;</span>{{ object.price|floatformat:"2" }}</h3> <del style="font-size: small; color: red; padding-left: 3px;">{{ object.discount_price|floatformat:"2" }}</del>
 			<p>
 				Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, cupiditate saepe quaerat nisi quo
 				fugiat natus. Voluptate quos, distinctio voluptatem commodi reiciendis ullam consequuntur. Accusantium

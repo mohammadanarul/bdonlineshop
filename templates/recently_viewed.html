@@ -1,7 +1,7 @@
 	{% load shop_template_tags %}
 	{% recent_product_tag as recent_product %}
 	<div class="card p-3 mt-3">
-		<h4 class="m-0">|| Recently viewed</h4>
+		<h6 class="m-0">Recently viewed</h6>
 	</div>
 	<div class="row">
 		{% for product in recent_product %}
@@ -14,7 +14,7 @@
 							<a class="product-title" href="{{ product.get_absolute_url }}">{{ product.title }}</a>
 						</section>
 						<section class="text-center ml-3 f-left">
-							<span class="mr-1">&#x9f3;</span>{{ product.price|floatformat:"0" }}<del>160</del>
+							<span class="mr-1">&#x9f3;</span>{{ product.price|floatformat:"2" }}<del style="font-size: small; color: red; padding-left: 3px;">{{ product.discount_price|floatformat:"2" }}</del>
 						</section>
 						<section>
 							<div class="btn btn-group">

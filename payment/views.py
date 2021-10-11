@@ -143,23 +143,30 @@ class CheckoutView(LoginRequiredMixin, View):
                         messages.info(request, 'Please fill in the required billing address form')
                 payment_option = form.cleaned_data.get('payment_option')
                 if payment_option == 'Cash on Delivery':
-                    order = Order.objects.get(user=request.user, ordered=False)
-                    payment = Payment()
-                    payment.stripe_charge_id = order.id
-                    payment.user = request.user
-                    payment.amount = order.get_total_price()
-                    payment.save()
+                    billing_address1 = form.cleaned_data.get('billing_address')
+                    billing_address2 = form.cleaned_data.get('billing_address2')
+                    billing_country = form.cleaned_data.get('billing_country')
+                    billing_zip = form.cleaned_data.get('billing_zip')
+                    if is_valid_form([billing_address1, billing_address2, billing_country, billing_zip]):
+                        order = Order.objects.get(user=request.user, ordered=False)
+                        payment = Payment()
+                        payment.stripe_charge_id = order.id
+                        payment.user = request.user
+                        payment.amount = order.get_total_price()
+                        payment.save()
 
-                    # assign the payment to the order
-                    order_items = order.items.all()
-                    for item in order_items:
-                        item.ordered = True
-                        item.save()
-                    order.ordered = True
-                    order.payment = payment
-                    order.save()
-                    messages.success(self.request, "Your order was successful!")
-                    return redirect("/")
+                        # assign the payment to the order
+                        order_items = order.items.all()
+                        for item in order_items:
+                            item.ordered = True
+                            item.save()
+                        order.ordered = True
+                        order.payment = payment
+                        order.save()
+                        messages.success(self.request, "Your order was successful!")
+                        return redirect("/")
+                    else:
+                        messages.info(request, 'Please fill in the required billing address form')
                 if payment_option == 'Stripe':
                     return redirect('payment:stripe_payment_view', payment_option='stripe')
                 elif payment_option == 'PayPal':

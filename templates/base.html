@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/static/fontawesome/css/all.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% include 'snippets/css.html' %}
 
 
     <title>Online Shop | {% block head_title %}{% endblock head_title %}</title>
@@ -17,7 +16,6 @@
 	{% endblock extra_head %}
   </head>
   <body>
-	{% include 'snippets/messages.html' %}
 	<!-- Start Header -->
 	{% include 'snippets/header.html' %}
   <main class="container">
@@ -27,11 +25,8 @@
   </main>
     <!-- Optional JavaScript; choose one of the two! -->
 
-    <script src="{% static 'js/jquery-3.5.1.slim.min.js' %}"></script>
-	<script src="{% static 'js/popper.min.js' %}"></script>
-	<script src="{% static 'js/bootstrap.min.js' %}"></script>
-  <script src="/static/js/main.js"></script>
-
+  {% include 'snippets/js.html' %}
+  {% include 'snippets/messages.html' %}
 	{% block extra_javascript %}
 	{% endblock extra_javascript %}
   </body>

@@ -76,3 +76,10 @@ justify-content: center;
     height: 60px;
     width: 70px;
 }
+
+/* alertyfy background and color change css */
+.ajs-message{
+    color: #31708f; 
+    background-color: #d9edf7;
+    border-color: #31708f;
+}

@@ -1,7 +1,7 @@
 from .base import *
 
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', cast=bool)
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '*']
 
@@ -56,4 +56,3 @@ cloudinary.config(
   api_key = config('api_key'), 
   api_secret = config('api_secret')
 )
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

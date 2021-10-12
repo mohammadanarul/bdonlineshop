@@ -2,7 +2,7 @@
     {% for message in messages %}
 
         alertify.set('notifier','position', 'top-right');
-        alertify.success('{{ message }}');
+        alertify.message('{{ message }}', 5);
 
             
     {% endfor %}

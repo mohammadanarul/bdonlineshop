@@ -5,28 +5,27 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="/static/fontawesome/css/all.css">
     <!-- Bootstrap CSS -->
     {% include 'snippets/css.html' %}
 
-
     <title>Online Shop | {% block head_title %}{% endblock head_title %}</title>
-	{% block extra_head %}
-	{% endblock extra_head %}
+    <style>
+        /* error halde */
+        .error-handle{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
   </head>
   <body>
-	<!-- Start Header -->
-	{% include 'snippets/header.html' %}
   <main class="container">
     {% block content %}
 			
 	{% endblock content %}
   </main>
-    <!-- Optional JavaScript; choose one of the two! -->
-
   {% include 'snippets/js.html' %}
-  {% include 'snippets/messages.html' %}
-	{% block extra_javascript %}
-	{% endblock extra_javascript %}
   </body>
 </html>

@@ -112,8 +112,17 @@ class UserLoginView(View):
             password = request.POST.get('password')
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                login(request, user)
-                return redirect('/')
+                if user.is_active:
+                    login(request, user)
+                    return redirect('/')
+                else:
+                    messages.info(request, "Your Email or password invalid.")
+                    return render(request, self.template_name)
+            else:
+                messages.info(request, "Your Email or password invalid.")
+                return render(request, self.template_name)
+        else:
+            return render(request, self.template_name)
 
 class UserLogoutView(View):
     def get(self, *args, **kwargs):
@@ -125,5 +134,4 @@ class DashboardView(LoginRequiredMixin, View):
     template_name = 'account/dashboard.html'
     def get(self, request, username, *args, **kwargs):
         account = Account.objects.get(username=username)
-        orders = Order.objects.get(user=request.user, ordered=True)
-        return render(request, self.template_name, {'account':account, 'orders':orders})
+        return render(request, self.template_name, {'account':account})

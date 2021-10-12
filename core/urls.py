@@ -3,6 +3,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from blog.views import about as about_view
+# from django.conf.urls import (
+#     handler400,
+#     handler403,
+#     handler404,
+#     handler500
+# )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,10 +19,15 @@ urlpatterns = [
     path('payment/', include('payment.urls', namespace='payment')),
     path('wishlist/', include('wishlists.urls', namespace='wishlist')),
     path('auth', include('django.contrib.auth.urls')),
-    
     # about 
     path('about/', about_view, name='about_page'),
 ]
+
+# error handling path
+handler400 = 'blog.views.bad_request'
+handler403 = 'blog.views.permission_denied'
+handler404 = 'blog.views.page_not_found'
+handler500 = 'blog.views.server_error'
 
 if settings.DEBUG:
     import debug_toolbar

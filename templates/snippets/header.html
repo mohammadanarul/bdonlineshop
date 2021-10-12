@@ -24,7 +24,7 @@
                 </li>
             </ul>
 
-            {% if requesr.user.is_authenticated %}
+            {% if request.user.is_authenticated %}
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a href="{% url 'wishlist:wishlist_lists' %}" class="nav-link">

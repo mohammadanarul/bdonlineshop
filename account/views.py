@@ -92,10 +92,10 @@ class PasswordResetView(View):
                         from_email = settings.EMAIL_HOST_USER
                         try:
                             send_mail(subject, email, from_email , [user.email], fail_silently=False)
-                            return redirect('/')
+                            return redirect("password_reset_done")
                         except BadHeaderError:
                             return HttpResponse('Invalid header found.')
-                            return redirect ("/password_reset/done/")
+                        return render(request, self.template_name)
 # login(request, form1, backend='django.contrib.auth.backends.ModelBackend')
     
 class UserLoginView(View):
@@ -121,8 +121,6 @@ class UserLoginView(View):
             else:
                 messages.info(request, "Your Email or password invalid.")
                 return render(request, self.template_name)
-        else:
-            return render(request, self.template_name)
 
 class UserLogoutView(View):
     def get(self, *args, **kwargs):

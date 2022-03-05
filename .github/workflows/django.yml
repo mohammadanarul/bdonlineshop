@@ -50,7 +50,7 @@ jobs:
           DB_PORT: ${{ secrets.DB_PORT }}
           DB_ENGINE: ${{secrets.DB_ENGINE}}
       run: |
-        coverage run manage.py test && coverage report --fail-under=75 && coverage xml
+        coverage run manage.py test && coverage report --fail-under=10 && coverage html
 
 
     - name: Test coverage to codecov

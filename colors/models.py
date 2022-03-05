@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 class Color(models.Model):
     color_name = models.CharField(_("color name"), max_length=50)

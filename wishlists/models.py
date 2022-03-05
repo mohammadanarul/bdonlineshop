@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from shop.models import Product
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 
 class Wishlist(models.Model):
